@@ -13,22 +13,22 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "flex min-h-screen flex-col items-center justify-center overflow-hidden bg-brand-dark w-full z-0 pt-32  ",
+        "flex min-h-screen flex-col items-center justify-center overflow-hidden bg-brand-dark w-full z-0 pt-32 relative",
         className
       )}
     >
       {/* --- CAMADA DE LUZ AMBIENTE (TELA INTEIRA) --- */}
-      {/* Esta div cria o brilho azulado que inunda a tela vindo do topo */}
-      <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none overflow-hidden">
+      {/* Adicionamos 'animate-hue' aqui para o brilho de fundo mudar de cor */}
+      <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none overflow-hidden animate-hue">
           <div 
             className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[150vw] h-[80vh] bg-cyan-500/20 blur-[120px] rounded-[100%]" 
             style={{ opacity: 0.6 }}
           />
-
       </div>
 
       {/* --- A BARRA DE LUZ FÍSICA --- */}
-      <div className="relative z-10 w-full flex flex-col items-center justify-center -translate-y-20"> 
+      {/* Adicionamos 'animate-hue' aqui para a lâmpada e o núcleo mudarem de cor */}
+      <div className="relative z-10 w-full flex flex-col items-center justify-center -translate-y-20 animate-hue"> 
         
         {/* Glow concentrado na barra */}
         <motion.div
@@ -48,18 +48,15 @@ export const LampContainer = ({
              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-full bg-white blur-[2px]" />
         </motion.div>
         
-        {/* Mascara para esconder o topo da luz e dar a impressao que sai de "cima" */}
-        {/* <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[13rem] bg-brand-dark"></div> */}
-
-
-                  {/* Núcleo mais forte da luz */}
-          <div 
+        {/* Núcleo mais forte da luz */}
+        <div 
             className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[100vw] h-[40vh] bg-cyan-400/30 blur-[190px] rounded-[100%]" 
-          />
+        />
       </div>
 
       {/* --- CONTEÚDO (TEXTO) --- */}
-      <div className="relative z-50 flex flex-col items-center px-5 -translate-y-10">
+      {/* Adicionamos 'animate-hue' aqui para o Texto e Botões acompanharem a cor da luz */}
+      <div className="relative z-50 flex flex-col items-center px-5 -translate-y-10 animate-hue">
         {children}
       </div>
     </div>

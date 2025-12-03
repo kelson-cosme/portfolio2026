@@ -178,3 +178,12 @@
     background: rgba(6, 182, 212, 0.5);
   }
 }
+
+@keyframes hue-rotate {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(360deg); }
+}
+
+.animate-hue {
+  animation: hue-rotate 15s linear infinite; /* 15s para uma mudança suave */
+}
