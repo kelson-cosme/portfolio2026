@@ -6,8 +6,7 @@ export function Hero() {
   return (
     <div className="relative w-full bg-brand-dark">
       
-      {/* 1. O Efeito Lâmpada com o Texto Principal */}
-      <LampHero />
+      
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
       {/* 2. Barra de Confiança (Social Proof) - Posicionada sobre o final da lampada */}
@@ -36,6 +35,9 @@ export function Hero() {
 
          </div>
       </div>
+
+      {/* 1. O Efeito Lâmpada com o Texto Principal */}
+      <LampHero />
 
     </div>
   );
