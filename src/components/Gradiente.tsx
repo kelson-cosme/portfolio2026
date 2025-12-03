@@ -28,9 +28,9 @@ export function LampHero() {
           initial={{ opacity: 0.5, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 2, ease: "easeInOut" }}
-          className="flex flex-col items-center text-center text-4xl sm:text-5xl md:text-5xl font-bold tracking-tight leading-[1.1] md:leading-tight"
+          className="flex flex-col items-center text-center text-2xl sm:text-5xl md:text-5xl font-bold tracking-tight leading-[1.1] md:leading-tight"
         >
-          <h1 className="text-7xl bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] block mb-1 md:mb-2">
+          <h1 className="text-5xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] block mb-1 md:mb-2">
             Não tenha apenas um Site.
           </h1>
           
@@ -39,7 +39,7 @@ export function LampHero() {
             containerClassName="mt-2" // Um pequeno espaçamento superior
             rectangleClassName="rounded-xl border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.3)]" // Estilo da borda
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-b from-cyan-200 via-cyan-400 to-cyan-600 drop-shadow-[0_0_25px_rgba(6,182,212,0.6)] px-2 block">
+            <span className="text-[.7em] md:text-5xl bg-clip-text text-transparent bg-gradient-to-b from-cyan-200 via-cyan-400 to-cyan-600 drop-shadow-[0_0_25px_rgba(6,182,212,0.6)] px-2 block">
                Tenha uma Máquina de Vendas.
             </span>
           </PointerHighlight>
