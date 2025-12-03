@@ -12,11 +12,11 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "framer-motion"; // Ajustado para framer-motion se motion/react falhar, ou mantém motion/react
 import { useOutsideClick } from "@/hooks/use-outside-click";
 
 interface CarouselProps {
-  items: JSX.Element[];
+  items: React.ReactNode[]; // CORREÇÃO 1: Mudado de JSX.Element[] para React.ReactNode[]
   initialScroll?: number;
 }
 
@@ -70,7 +70,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
+      const cardWidth = isMobile() ? 230 : 384;
       const gap = isMobile() ? 4 : 8;
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
@@ -104,7 +104,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
           <div
             className={cn(
               "flex flex-row justify-start gap-4 pl-4",
-              "mx-auto max-w-7xl", // remove max-w-4xl if you want the carousel to span the full width of its container
+              "mx-auto max-w-7xl",
             )}
           >
             {items.map((item, index) => (
@@ -120,7 +120,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                     duration: 0.5,
                     delay: 0.2 * index,
                     ease: "easeOut",
-                    once: true,
+                    // CORREÇÃO 2: 'once: true' removido daqui pois não existe em Transition
                   },
                 }}
                 key={"card" + index}
@@ -163,7 +163,7 @@ export const Card = ({
 }) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { onCardClose, currentIndex } = useContext(CarouselContext);
+  const { onCardClose,  } = useContext(CarouselContext);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -258,7 +258,6 @@ export const Card = ({
         <BlurImage
           src={card.src}
           alt={card.title}
-          // fill removido pois não existe no <img> padrão
           className="absolute inset-0 z-10 object-cover"
         />
       </motion.button>
@@ -266,7 +265,6 @@ export const Card = ({
   );
 };
 
-// Interface atualizada para usar atributos HTML padrão de imagem
 interface BlurImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
 }
@@ -293,7 +291,6 @@ export const BlurImage = ({
       height={height}
       loading="lazy"
       decoding="async"
-      // blurDataURL removido
       alt={alt ? alt : "Background of a beautiful view"}
       {...rest}
     />

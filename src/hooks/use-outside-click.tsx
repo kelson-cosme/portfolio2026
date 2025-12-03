@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 
+// CORREÇÃO 3: Permitir HTMLDivElement | null
 export const useOutsideClick = (
-  ref: React.RefObject<HTMLDivElement>,
+  ref: React.RefObject<HTMLDivElement | null>,
   callback: Function
 ) => {
   useEffect(() => {

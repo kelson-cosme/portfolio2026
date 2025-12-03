@@ -1,4 +1,3 @@
-import React from "react";
 import { CometCard } from "@/components/ui/comet-card";
 
 const stack = [

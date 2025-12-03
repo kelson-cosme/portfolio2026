@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { TechStack } from "./components/TechStack";
