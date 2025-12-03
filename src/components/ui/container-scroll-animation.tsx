@@ -5,14 +5,19 @@ import { useScroll, useTransform, motion, MotionValue } from "motion/react";
 export const ContainerScroll = ({
   titleComponent,
   children,
+  scrollContainerRef, // 1. Adicionamos essa nova propriedade
 }: {
   titleComponent: string | React.ReactNode;
   children: React.ReactNode;
+  scrollContainerRef?: React.RefObject<HTMLElement | null>; // Tipagem
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
+    container: scrollContainerRef, // 2. Passamos a referência aqui!
   });
+  
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
