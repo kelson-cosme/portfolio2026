@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
-import { TechStack } from "./components/TechStack"; // <--- Importe aqui
+import { TechStack } from "./components/TechStack";
+import { Projects } from "./components/Projects"; // <--- Importe aqui
 
 function App() {
   const scrollRef = useRef<HTMLElement>(null);
@@ -15,8 +16,10 @@ function App() {
       
       <About scrollContainerRef={scrollRef} />
       
-      {/* Nova seção adicionada aqui */}
       <TechStack />
+
+      {/* Nova seção adicionada aqui */}
+      <Projects />
     </main>
   );
 }

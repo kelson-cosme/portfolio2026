@@ -13,7 +13,6 @@ import {
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
-import Image, { ImageProps } from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 
 interface CarouselProps {
@@ -92,7 +91,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     >
       <div className="relative w-full">
         <div
-          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-20"
+          className="flex w-full overflow-x-scroll overscroll-x-autoXHNc scroll-smooth py-10 [scrollbar-width:none] md:py-20"
           ref={carouselRef}
           onScroll={checkScrollability}
         >
@@ -259,13 +258,18 @@ export const Card = ({
         <BlurImage
           src={card.src}
           alt={card.title}
-          fill
+          // fill removido pois não existe no <img> padrão
           className="absolute inset-0 z-10 object-cover"
         />
       </motion.button>
     </>
   );
 };
+
+// Interface atualizada para usar atributos HTML padrão de imagem
+interface BlurImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  src: string;
+}
 
 export const BlurImage = ({
   height,
@@ -274,7 +278,7 @@ export const BlurImage = ({
   className,
   alt,
   ...rest
-}: ImageProps) => {
+}: BlurImageProps) => {
   const [isLoading, setLoading] = useState(true);
   return (
     <img
@@ -284,12 +288,12 @@ export const BlurImage = ({
         className,
       )}
       onLoad={() => setLoading(false)}
-      src={src as string}
+      src={src}
       width={width}
       height={height}
       loading="lazy"
       decoding="async"
-      blurDataURL={typeof src === "string" ? src : undefined}
+      // blurDataURL removido
       alt={alt ? alt : "Background of a beautiful view"}
       {...rest}
     />
