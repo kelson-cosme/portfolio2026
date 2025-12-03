@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll } from "framer-motion"; // removi useTransform se não for usado
+import { motion, useScroll } from "framer-motion";
 import { 
   Code2, 
   Palette, 
   Rocket, 
-  SearchCheck // <--- CORRIGIDO AQUI (estava SearchCHECK)
+  SearchCheck 
 } from "lucide-react";
 
 // Dados dos serviços
@@ -34,25 +34,26 @@ const services = [
     id: "04",
     title: "SEO & Performance",
     description: "Um site bonito que ninguém encontra não serve de nada. Estrutura otimizada para o Google e carregamento instantâneo.",
-    icon: <SearchCheck className="w-8 h-8" />, // <--- CORRIGIDO AQUI TAMBÉM
+    icon: <SearchCheck className="w-8 h-8" />,
     color: "from-purple-400 to-pink-500"
   },
 ];
 
-export function Services() {
+// 1. Adicionamos a prop scrollContainerRef aqui 👇
+export function Services({ scrollContainerRef }: { scrollContainerRef: React.RefObject<HTMLElement | null> }) {
   const targetRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Monitoriza o scroll deste componente específico
   const { scrollYProgress } = useScroll({
     target: targetRef,
+    container: scrollContainerRef, // 2. IMPORTANTE: Dizemos ao Framer para olhar para o container certo!
     offset: ["start start", "end end"],
   });
 
   // Atualiza o índice ativo baseado no progresso do scroll (0 a 1)
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      // Dividimos o scroll em fatias iguais para cada serviço
       const step = 1 / services.length;
       const newIndex = Math.min(
         Math.floor(latest / step),
@@ -64,17 +65,13 @@ export function Services() {
     return () => unsubscribe();
   }, [scrollYProgress]);
 
-  // Transforma o background levemente baseado no ativo (efeito de luz ambiente)
   const bgGradient = services[activeIndex].color;
 
   return (
-    // 1. O Container Principal (scroll longo para dar tempo de ler)
     <section 
       ref={targetRef} 
-      className="relative h-[300vh] bg-brand-dark" 
+      className="relative h-[300vh] bg-brand-dark snap-start" 
     >
-      
-      {/* 2. O Conteúdo Sticky (O que fica 'preso' na tela) */}
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
         
         {/* Luz de fundo dinâmica */}
@@ -82,9 +79,8 @@ export function Services() {
 
         <div className="relative z-10 w-full max-w-6xl px-6 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
           
-          {/* LADO ESQUERDO: A Timeline (Igual à imagem de referência) */}
+          {/* LADO ESQUERDO: A Timeline */}
           <div className="hidden md:flex flex-col gap-8 md:col-span-4 relative">
-            {/* Linha vertical conectora */}
             <div className="absolute left-[27px] top-4 bottom-4 w-0.5 bg-slate-800 -z-10" />
 
             {services.map((service, index) => {
@@ -94,7 +90,6 @@ export function Services() {
                   key={service.id} 
                   className={`flex items-center gap-6 transition-all duration-500 ${isActive ? 'opacity-100 translate-x-2' : 'opacity-40'}`}
                 >
-                  {/* O Círculo com o ícone/número */}
                   <div 
                     className={`
                       w-14 h-14 rounded-full flex items-center justify-center border-2 
@@ -108,7 +103,6 @@ export function Services() {
                    <span className="font-bold text-lg">{service.id}</span>
                   </div>
                   
-                  {/* Título na timeline */}
                   <span className={`text-2xl font-bold uppercase tracking-wider ${isActive ? 'text-white' : 'text-slate-600'}`}>
                     {service.title}
                   </span>
@@ -117,10 +111,9 @@ export function Services() {
             })}
           </div>
 
-          {/* LADO DIREITO: O Card com o conteúdo que muda */}
+          {/* LADO DIREITO: O Card */}
           <div className="md:col-span-8 h-[400px] relative flex items-center">
             {services.map((service, index) => {
-               // Apenas mostramos o card ativo
                const isActive = index === activeIndex;
                
                return (
@@ -132,17 +125,15 @@ export function Services() {
                      y: isActive ? 0 : 50,
                      scale: isActive ? 1 : 0.9,
                      zIndex: isActive ? 10 : 0,
-                     pointerEvents: isActive ? 'auto' : 'none' // Evita clicar em cards invisíveis
+                     pointerEvents: isActive ? 'auto' : 'none'
                    }}
                    transition={{ duration: 0.5, ease: "easeOut" }}
                    className="absolute inset-0 w-full"
                  >
                     <div className="h-full w-full p-8 md:p-12 rounded-3xl border border-slate-800 bg-slate-900/50 backdrop-blur-xl flex flex-col justify-center gap-6 shadow-2xl relative overflow-hidden group">
                       
-                      {/* Borda brilhante no hover */}
                       <div className="absolute inset-0 border border-white/5 rounded-3xl group-hover:border-cyan-500/30 transition-colors duration-500" />
                       
-                      {/* Icone Grande */}
                       <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} p-4 text-white shadow-lg mb-4`}>
                         {service.icon}
                       </div>
@@ -155,7 +146,6 @@ export function Services() {
                         {service.description}
                       </p>
 
-                      {/* Decoração visual (fundo do card) */}
                       <div className={`absolute -right-20 -bottom-20 w-64 h-64 bg-gradient-to-br ${service.color} opacity-10 blur-[80px] rounded-full`} />
                     </div>
                  </motion.div>
@@ -165,7 +155,6 @@ export function Services() {
 
         </div>
 
-        {/* Indicador de scroll (Seta para baixo) - Apenas visual */}
         <motion.div 
             animate={{ y: [0, 10, 0] }} 
             transition={{ repeat: Infinity, duration: 2 }}

@@ -3,6 +3,7 @@ import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { TechStack } from "./components/TechStack";
 import { Projects } from "./components/Projects"; // <--- Importe aqui
+import { Services } from "./components/Services"; // <--- Importa aqui
 
 function App() {
   const scrollRef = useRef<HTMLElement>(null);
@@ -10,8 +11,7 @@ function App() {
   return (
     <main 
       ref={scrollRef as any}
-      className="bg-brand-dark min-h-screen h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth"
-    >
+className="bg-brand-dark min-h-screen h-screen w-full overflow-y-scroll snap-y snap-proximity scroll-smooth"    >
       <Hero scrollContainerRef={scrollRef} />
       
       <About scrollContainerRef={scrollRef} />
@@ -20,7 +20,9 @@ function App() {
 
       {/* Nova seção adicionada aqui */}
       <Projects />
-    </main>
+
+<Services scrollContainerRef={scrollRef} />    
+</main>
   );
 }
 
