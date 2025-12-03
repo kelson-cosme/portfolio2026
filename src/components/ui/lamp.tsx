@@ -13,106 +13,66 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-transparent w-full rounded-md z-0",
+        "relative flex flex-col items-center w-full bg-brand-dark z-0",
         className
       )}
     >
-      <div className="relative flex w-full flex-1 items-center justify-center isolate z-0">
-        {/* --- CAMADAS DE SUAVIZAÇÃO E BRILHO --- */}
-
-        {/* 1. Borrão de fundo para atmosfera */}
-        <div className="absolute top-1/2 h-[20rem] w-full translate-y-12 scale-x-[2] bg-brand-dark blur-[150px] opacity-30"></div>
-        
-        {/* 2. LUZ ESQUERDA - MODIFICADA para vir de baixo */}
-        <motion.div
-          initial={{ opacity: 0.3, height: "10rem" }}
-          whileInView={{ opacity: 0.8, height: "25rem" }}
-          transition={{
-            delay: 0.3,
-            duration: 1.2,
-            ease: "easeInOut",
-          }}
-          style={{
-            backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
-          }}
-          className="absolute inset-auto right-1/2 bottom-0 w-[30rem] h-[25rem] bg-gradient-conic from-cyan-500 via-blue-500/40 to-transparent text-white [--conic-position:from_0deg_at_center_bottom]"
-        >
-          {/* Máscara para limitar a direção da luz (apenas para cima) */}
-          <div className="absolute w-full left-0 bg-brand-dark h-32 top-0 z-20 [mask-image:linear-gradient(to_bottom,white,transparent)]" />
-          {/* Máscara lateral para suavizar bordas */}
-          <div className="absolute h-full right-0 bg-brand-dark w-16 z-20 [mask-image:linear-gradient(to_left,white,transparent)]" />
-        </motion.div>
-
-        {/* 3. LUZ DIREITA - MODIFICADA para vir de baixo */}
-        <motion.div
-          initial={{ opacity: 0.3, height: "10rem" }}
-          whileInView={{ opacity: 0.8, height: "25rem" }}
-          transition={{
-            delay: 0.3,
-            duration: 1.2,
-            ease: "easeInOut",
-          }}
-          style={{
-            backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
-          }}
-          className="absolute inset-auto left-1/2 bottom-0 w-[30rem] h-[25rem] bg-gradient-conic from-purple-500 via-blue-500/40 to-transparent text-white [--conic-position:from_180deg_at_center_bottom]"
-        >
-          <div className="absolute w-full right-0 bg-brand-dark h-32 top-0 z-20 [mask-image:linear-gradient(to_bottom,white,transparent)]" />
-          <div className="absolute h-full left-0 bg-brand-dark w-16 z-20 [mask-image:linear-gradient(to_right,white,transparent)]" />
-        </motion.div>
-
-        {/* 4. Neblina na base para esconder origem */}
-        <div className="absolute bottom-0 z-40 h-32 w-full bg-brand-dark opacity-60 blur-[80px] translate-y-8"></div>
-        
-        {/* 5. Glow circular principal - MAIOR e mais intenso na base */}
-        <div className="absolute inset-auto z-50 h-48 w-[40rem] bottom-0 translate-y-1/2 rounded-full bg-gradient-to-r from-cyan-400/30 via-blue-500/30 to-purple-500/30 blur-[100px]"></div>
-        
-        {/* 6. Brilho adicional na base */}
-        <motion.div
-          initial={{ width: "12rem", opacity: 0 }}
-          whileInView={{ width: "24rem", opacity: 1 }}
-          transition={{
-            delay: 0.4,
-            duration: 1,
-            ease: "easeInOut",
-          }}
-          className="absolute inset-auto z-30 h-32 w-96 bottom-0 translate-y-[4rem] rounded-full bg-gradient-to-r from-cyan-400/20 to-purple-500/20 blur-3xl"
-        ></motion.div>
-        
-        {/* 7. A LINHA BRILHANTE - Agora na base, iluminando para cima */}
-        <motion.div
-          initial={{ width: "20rem", opacity: 0 }}
-          whileInView={{ width: "40rem", opacity: 1 }}
-          transition={{
-            delay: 0.3,
-            duration: 1,
-            ease: "easeInOut",
-          }}
-          className="absolute inset-auto z-50 h-1 w-[40rem] bottom-0 translate-y-[3.5rem] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_-20px_80px_10px_rgba(6,182,212,0.8)]"
-        ></motion.div>
-
-        {/* 8. Linha secundária para mais profundidade */}
-        <motion.div
-          initial={{ width: "15rem", opacity: 0 }}
-          whileInView={{ width: "35rem", opacity: 0.5 }}
-          transition={{
-            delay: 0.5,
-            duration: 1,
-            ease: "easeInOut",
-          }}
-          className="absolute inset-auto z-40 h-[2px] w-[35rem] bottom-0 translate-y-[4rem] bg-gradient-to-r from-transparent via-blue-300/50 to-transparent blur-sm"
-        ></motion.div>
-
-        {/* 9. Fundo superior para cobrir completamente a parte de cima */}
-        <div className="absolute inset-auto z-40 h-64 w-full top-0 -translate-y-[15rem] bg-gradient-to-t from-transparent to-brand-dark"></div>
-
-        {/* 10. Barreira na base para bloquear luz para baixo */}
-        <div className="absolute bottom-0 z-50 h-8 w-full bg-brand-dark"></div>
+      {/* CONTEÚDO */}
+      <div className="relative z-40 flex flex-col items-center px-5 pt-32">
+        {children}
       </div>
 
-      {/* Conteúdo dos textos - posicionado acima da luz */}
-      <div className="relative z-50 flex mb-40 flex-col items-center px-5">
-        {children}
+      {/* BARRA E FEIXE VISÍVEL */}
+      <div className="relative z-30 w-full flex flex-col items-center mt-4">
+        
+        {/* FEIXE "V" MUITO VISÍVEL */}
+        <div className="relative w-full h-[100px] flex justify-center items-end mb-2">
+          
+          {/* FEIXE PRINCIPAL - Cone de luz bem visível */}
+          <div 
+            className="absolute bottom-0 w-[50%] h-[50vh]"
+            style={{
+              background: "linear-gradient(to top, rgba(34, 211, 238, 0.35) 0%, rgba(34, 211, 238, 0.18) 30%, rgba(34, 211, 238, 0.05) 50%, transparent 100%)",
+              clipPath: "polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%)",
+              filter: "blur(1px)",
+            }}
+          />
+
+          {/* LUZ BRANCA CENTRAL */}
+          <div 
+            className="absolute bottom-0 w-[30%] h-[60px]"
+            style={{
+              background: "linear-gradient(to top, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)",
+              maskImage: "radial-gradient(ellipse 60% 100% at 50% 100%, black 0%, transparent 100%)",
+              WebkitMaskImage: "radial-gradient(ellipse 60% 100% at 50% 100%, black 0%, transparent 100%)",
+            }}
+          />
+
+          {/* PONTO DE ORIGEM INTENSO */}
+          <div className="absolute bottom-0 w-[30%] h-[3px]">
+            <div 
+              className="w-full h-full"
+              style={{
+                background: "radial-gradient(ellipse 150% 100% at 50% 100%, rgba(34, 211, 238, 0.8) 0%, rgba(34, 211, 238, 0.4) 50%, transparent 100%)",
+                filter: "blur(10px)",
+              }}
+            />
+          </div>
+        </div>
+
+        {/* BARRA */}
+        <motion.div
+          initial={{ width: "5rem", opacity: 0 }}
+          whileInView={{ width: "30%", opacity: 1 }}
+          transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
+          className="relative h-[4px] rounded-full bg-gradient-to-r from-cyan-300 via-cyan-400 to-cyan-300 shadow-[0_0_50px_15px_rgba(34,211,238,0.9),0_0_100px_30px_rgba(34,211,238,0.3)]"
+        >
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-[6px] bg-gradient-to-r from-cyan-200 via-white to-cyan-200 opacity-80 blur-[2px]" />
+        </motion.div>
+
+        {/* GLOW EXTRA */}
+        <div className="absolute -inset-x-8 -top-4 h-10 bg-gradient-to-r from-cyan-500/40 via-cyan-400/50 to-cyan-500/40 blur-2xl" />
+
       </div>
     </div>
   );

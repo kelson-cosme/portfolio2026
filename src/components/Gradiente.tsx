@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion"; // Ajustado para framer-motion padrão
+import { motion } from "framer-motion";
 import { LampContainer } from "@/components/ui/lamp";
 import { ArrowUpRight } from "lucide-react";
 
@@ -49,7 +49,7 @@ export function LampHero() {
             Desenvolvo interfaces de alta performance projetadas para converter visitantes em clientes fiéis.
         </motion.p>
 
-        {/* Botões */}
+        {/* Botões - MENOS ESPAÇO ABAIXO */}
         <motion.div 
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
