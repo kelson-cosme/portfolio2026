@@ -27,7 +27,7 @@ export function About({ scrollContainerRef }: { scrollContainerRef: React.RefObj
       >
         <div className="w-full h-full flex items-center justify-center bg-slate-900">
             <img
-              src="https://images.unsplash.com/photo-1607799275518-d58665d096c1?q=80&w=2564&auto=format&fit=crop"
+              src="/perfil.webp"
               alt="Ambiente de desenvolvimento"
               className="mx-auto rounded-2xl object-cover h-full w-full object-center"
               draggable={false}
