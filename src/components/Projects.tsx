@@ -63,9 +63,9 @@ const DummyContent = () => {
 
 const projectData = [
   {
-    category: "E-commerce",
-    title: "Loja Sneakers High-End",
-    src: "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=3270&auto=format&fit=crop",
+    category: "Landing Page",
+    title: "Dr. Eduardo Amui",
+    src: "/eduardoamui/eduardoamui.webp",
     content: <DummyContent />,
   },
   {
