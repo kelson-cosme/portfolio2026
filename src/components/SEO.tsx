@@ -25,9 +25,9 @@ export function SEO({
     "name": "Kelson Cosme",
     "url": url,
     "sameAs": [
-      "https://www.linkedin.com/in/seu-perfil", // Coloque seus links reais
+      "https://www.linkedin.com/in/kelson-cosme", // Coloque seus links reais
       "https://github.com/kelson-cosme",
-      "https://instagram.com/seu-instagram"
+      "https://www.instagram.com/kelsoncosme.dev"
     ],
     "jobTitle": "Senior Frontend Developer",
     "worksFor": {
