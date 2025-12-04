@@ -7,6 +7,7 @@ import { Services } from "./components/Services";
 import { Testimonials } from "./components/Testimonials";
 import { Contact } from "./components/Contact";
 import { ScrollReveal } from "@/components/ui/scroll-reveal.tsx"; // <--- 1. Importa o componente
+import { SEO } from "./components/SEO"; // <--- Importar
 
 function App() {
   const scrollRef = useRef<HTMLElement>(null);
@@ -16,6 +17,8 @@ function App() {
       ref={scrollRef as any}
       className="bg-brand-dark min-h-screen h-screen w-full overflow-y-scroll snap-y snap-proximity scroll-smooth"
     >
+      <SEO />
+
       {/* Hero já tem animação própria */}
       <Hero scrollContainerRef={scrollRef} />
       
