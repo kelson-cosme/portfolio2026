@@ -85,7 +85,7 @@ export function Contact({ scrollContainerRef }: { scrollContainerRef: React.RefO
         </motion.div>
 
         <div className="absolute bottom-6 text-slate-600 text-xs font-semibold tracking-widest uppercase opacity-50">
-            © 2026 Kelson Cosme • Feito com paixão e código.
+            © 64.477.041 KELSON COSME DE ALMEIDA • 2026 • Feito com paixão e código.
         </div>
 
       </div>
