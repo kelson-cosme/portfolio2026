@@ -1,25 +1,20 @@
-import { useRef, Suspense, lazy } from "react";
+import { useRef } from "react";
 import { Hero } from "./components/Hero";
 import { SEO } from "./components/SEO";
 import { ScrollReveal } from "@/components/ui/scroll-reveal.tsx"; // <--- 1. Importa o componente
 
-// --- LAZY LOADING (Carregamento Preguiçoso) ---
-// Importamos os componentes pesados apenas quando necessário para o site carregar rápido.
-// O ".then(module => ...)" é necessário porque são exportações nomeadas (export function X).
+// --- STATIC IMPORTS (Prevenção de Erros de Runtime e Build) ---
+// O usuário removeu o Suspense, então lazy loading causaria erro. 
+// Voltamos para imports normais.
 
-const About = lazy(() => import("./components/About").then(module => ({ default: module.About })));
-const TechStack = lazy(() => import("./components/TechStack").then(module => ({ default: module.TechStack })));
-const Projects = lazy(() => import("./components/Projects").then(module => ({ default: module.Projects })));
-const Services = lazy(() => import("./components/Services").then(module => ({ default: module.Services })));
-const Testimonials = lazy(() => import("./components/Testimonials").then(module => ({ default: module.Testimonials })));
-const Contact = lazy(() => import("./components/Contact").then(module => ({ default: module.Contact })));
+// import { About } from "./components/About"; 
+import { TechStack } from "./components/TechStack";
+import { Projects } from "./components/Projects";
+import { Services } from "./components/Services";
+import { Testimonials } from "./components/Testimonials";
+import { Contact } from "./components/Contact";
 
-// Componente de Carregamento Simples (Skeleton/Loader)
-const SectionLoader = () => (
-  <div className="w-full h-40 flex items-center justify-center text-slate-600">
-    <div className="animate-pulse">A carregar secção...</div>
-  </div>
-);
+
 
 import { useEffect } from "react";
 // Import Locomotive Scroll (ensure it's installed via npm install locomotive-scroll)

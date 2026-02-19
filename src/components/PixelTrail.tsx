@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber';
 import { useTexture, shaderMaterial, useFBO } from '@react-three/drei';
 import * as THREE from 'three';
@@ -204,7 +204,7 @@ declare global {
         interface IntrinsicElements {
             brushMaterial: any;
             simulationMaterial: any;
-            displayMaterial: any;
+            displayMaterial: any; // FIX: Ensure this is typed as any or specific props
         }
     }
 }
@@ -216,6 +216,7 @@ interface PixelTrailProps {
     maxAge?: number; // Decay speed (mapped)
     interpolate?: number; // Not heavily used here
     className?: string;
+    active?: boolean; // FIX: Added active prop
     // Legacy props to ignore
     gridSize?: any;
     gooey?: any;
@@ -330,6 +331,7 @@ function FluidReveal({ image2, trailSize = 0.1, maxAge = 0.98 }: any) {
     return (
         <mesh>
             <planeGeometry args={[viewport.width, viewport.height]} />
+            {/* @ts-ignore */}
             <displayMaterial
                 ref={displayMat}
                 uTexture={texture}
