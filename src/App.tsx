@@ -21,58 +21,85 @@ const SectionLoader = () => (
   </div>
 );
 
+import { useEffect } from "react";
+// Import Locomotive Scroll (ensure it's installed via npm install locomotive-scroll)
+import LocomotiveScroll from 'locomotive-scroll';
+import 'locomotive-scroll/dist/locomotive-scroll.css'; // Optional if you need base styles
+
 function App() {
   const scrollRef = useRef<HTMLElement>(null);
 
+  useEffect(() => {
+    // Locomotive Scroll v5 initialization
+    const scroll = new LocomotiveScroll();
+
+    return () => {
+      if (scroll) scroll.destroy();
+    }
+  }, []);
+
   return (
-    <main 
+    <main
       ref={scrollRef as any}
-      className="bg-brand-dark min-h-screen h-screen w-full overflow-y-scroll snap-y snap-proximity scroll-smooth"
+      data-scroll-container
+      className="bg-brand-dark min-h-screen w-full" // Removed overflow-y-scroll, snap-y, scroll-smooth
     >
       {/* 1. SEO Principal da Página */}
       <SEO />
 
       {/* 2. Hero (Mantido "Eager" - carrega logo para não piscar) */}
       <Hero scrollContainerRef={scrollRef} />
-      
+
       {/* 3. Secções com Lazy Loading */}
       {/* About */}
-      <ScrollReveal>
-        <Suspense fallback={<SectionLoader />}>
-          <About scrollContainerRef={scrollRef} />
-        </Suspense>
-      </ScrollReveal>
-      
+      {/* <div data-scroll-section>
+        <ScrollReveal>
+          <Suspense fallback={<SectionLoader />}>
+            <About scrollContainerRef={scrollRef} />
+          </Suspense>
+        </ScrollReveal>
+      </div> */}
+
       {/* TechStack */}
-      <ScrollReveal>
-        <Suspense fallback={<SectionLoader />}>
-          <TechStack />
-        </Suspense>
-      </ScrollReveal>
+      <div data-scroll-section>
+        <ScrollReveal>
+          <Suspense fallback={<SectionLoader />}>
+            <TechStack />
+          </Suspense>
+        </ScrollReveal>
+      </div>
 
       {/* Projects */}
-      <ScrollReveal>
-        <Suspense fallback={<SectionLoader />}>
-          <Projects />
-        </Suspense>
-      </ScrollReveal>
+      <div data-scroll-section>
+        <ScrollReveal>
+          <Suspense fallback={<SectionLoader />}>
+            <Projects />
+          </Suspense>
+        </ScrollReveal>
+      </div>
 
       {/* Services (Sticky - Fora do ScrollReveal) */}
-      <Suspense fallback={<div className="h-screen w-full bg-brand-dark" />}>
-        <Services scrollContainerRef={scrollRef} />    
-      </Suspense>
-      
-      {/* Testimonials */}
-      <ScrollReveal>
-        <Suspense fallback={<SectionLoader />}>
-          <Testimonials />
+      <div data-scroll-section>
+        <Suspense fallback={<div className="h-screen w-full bg-brand-dark" />}>
+          <Services scrollContainerRef={scrollRef} />
         </Suspense>
-      </ScrollReveal>
+      </div>
+
+      {/* Testimonials */}
+      <div data-scroll-section>
+        <ScrollReveal>
+          <Suspense fallback={<SectionLoader />}>
+            <Testimonials />
+          </Suspense>
+        </ScrollReveal>
+      </div>
 
       {/* Contact (Sticky - Fora do ScrollReveal) */}
-      <Suspense fallback={<div className="h-screen w-full bg-brand-dark" />}>
-        <Contact scrollContainerRef={scrollRef} />
-      </Suspense>
+      <div data-scroll-section>
+        <Suspense fallback={<div className="h-screen w-full bg-brand-dark" />}>
+          <Contact scrollContainerRef={scrollRef} />
+        </Suspense>
+      </div>
 
     </main>
   );
