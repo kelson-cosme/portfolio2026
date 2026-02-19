@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
 import { PixelTrail } from "@/components/PixelTrail";
 import { Database, Layout, TrendingUp } from "lucide-react";
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, motion, useInView } from "framer-motion";
 
 export function Hero({ scrollContainerRef }: { scrollContainerRef: React.RefObject<HTMLElement | null> }) {
   const targetRef = useRef<HTMLDivElement>(null);
+  // PERF: Detect if Hero is in view to pause simulation when off-screen
+  const isInView = useInView(targetRef, { margin: "0px 0px -10% 0px" });
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -34,6 +36,7 @@ export function Hero({ scrollContainerRef }: { scrollContainerRef: React.RefObje
           trailSize={0.15} // Brush size needs to be smaller in UV space (0-1)
           maxAge={200} // Faster decay so face returns quickly
           className="absolute inset-0 z-10 w-full h-full mix-blend-normal"
+          active={isInView} // PERF: Only render when visible
         />
       </div>
 

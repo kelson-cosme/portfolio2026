@@ -344,8 +344,8 @@ export function PixelTrail({ image2, trailSize = 0.1, maxAge = 1000, className }
     return (
         <div className={`w-full h-full ${className} pointer-events-none`}>
             <Canvas
-                gl={{ alpha: true, antialias: true }}
-                dpr={[1, 2]}
+                gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+                dpr={1}
                 eventSource={document.getElementById('root') || document.body}
                 eventPrefix="client"
                 style={{ pointerEvents: 'none' }}
