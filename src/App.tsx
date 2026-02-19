@@ -54,51 +54,49 @@ function App() {
       {/* About */}
       {/* <div data-scroll-section>
         <ScrollReveal>
-          <Suspense fallback={<SectionLoader />}>
+         
             <About scrollContainerRef={scrollRef} />
-          </Suspense>
+          
         </ScrollReveal>
       </div> */}
 
       {/* TechStack */}
       <div data-scroll-section>
         <ScrollReveal>
-          <Suspense fallback={<SectionLoader />}>
-            <TechStack />
-          </Suspense>
+
+          <TechStack />
+
         </ScrollReveal>
       </div>
 
       {/* Projects */}
       <div data-scroll-section>
         <ScrollReveal>
-          <Suspense fallback={<SectionLoader />}>
-            <Projects />
-          </Suspense>
+
+          <Projects />
+
         </ScrollReveal>
       </div>
 
       {/* Services (Sticky - Fora do ScrollReveal) */}
       <div data-scroll-section>
-        <Suspense fallback={<div className="h-screen w-full bg-brand-dark" />}>
-          <Services scrollContainerRef={scrollRef} />
-        </Suspense>
+        <Services scrollContainerRef={scrollRef} />
+
       </div>
 
       {/* Testimonials */}
       <div data-scroll-section>
         <ScrollReveal>
-          <Suspense fallback={<SectionLoader />}>
-            <Testimonials />
-          </Suspense>
+
+          <Testimonials />
+
         </ScrollReveal>
       </div>
 
       {/* Contact (Sticky - Fora do ScrollReveal) */}
       <div data-scroll-section>
-        <Suspense fallback={<div className="h-screen w-full bg-brand-dark" />}>
-          <Contact scrollContainerRef={scrollRef} />
-        </Suspense>
+        <Contact scrollContainerRef={scrollRef} />
+
       </div>
 
     </main>
