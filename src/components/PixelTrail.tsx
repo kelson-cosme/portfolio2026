@@ -243,6 +243,7 @@ interface PixelTrailProps {
     className?: string;
     active?: boolean; // FIX: Added active prop
     forceReveal?: boolean; // Reveal completely
+    isLocked?: boolean; // Mobile touch lock state
     // Legacy props to ignore
     gridSize?: any;
     gooey?: any;
@@ -377,15 +378,18 @@ function FluidReveal({ image1, image2, trailSize = 0.1, maxAge = 0.98, forceReve
     );
 }
 
-export function PixelTrail({ image1 = "/perfil.png", image2, trailSize = 0.1, maxAge = 1000, className, forceReveal = false }: PixelTrailProps) {
+export function PixelTrail({ image1 = "/perfil.png", image2, trailSize = 0.1, maxAge = 1000, className, forceReveal = false, isLocked = false }: PixelTrailProps) {
     return (
-        <div className={`w-full h-full ${className} pointer-events-none`}>
+        <div
+            className={`w-full h-full ${className}`}
+            style={{ pointerEvents: isLocked ? 'auto' : 'none', touchAction: isLocked ? 'none' : 'auto' }}
+        >
             <Canvas
                 gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
                 dpr={1}
                 eventSource={document.getElementById('root') || document.body}
-                eventPrefix="client"
-                style={{ pointerEvents: 'none' }}
+                eventPrefix="page"
+                style={{ pointerEvents: isLocked ? 'auto' : 'none', touchAction: isLocked ? 'none' : 'auto' }}
             >
                 <FluidReveal image1={image1} image2={image2} trailSize={trailSize} maxAge={maxAge} forceReveal={forceReveal} />
             </Canvas>

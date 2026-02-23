@@ -78,6 +78,7 @@ export function Hero() {
             maxAge={200} // Faster decay so face returns quickly
             className="absolute inset-0 w-full h-full"
             active={isInView} // PERF: Only render when visible
+            isLocked={isLocked} // Passes lock state to enable mobile touch drawing
           />
         </div>
       </motion.div>
