@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { Hero } from "./components/Hero";
 import { SEO } from "./components/SEO";
-import { ScrollReveal } from "@/components/ui/scroll-reveal.tsx"; // <--- 1. Importa o componente
 
 // --- STATIC IMPORTS (Prevenção de Erros de Runtime e Build) ---
 // O usuário removeu o Suspense, então lazy loading causaria erro. 
