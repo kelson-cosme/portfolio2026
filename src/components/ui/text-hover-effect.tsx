@@ -32,7 +32,7 @@ export const TextHoverEffect = ({
       ref={svgRef}
       width="100%"
       height="100%"
-      viewBox="0 0 300 100"
+      viewBox="0 0 500 100"
       xmlns="http://www.w3.org/2000/svg"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -66,13 +66,13 @@ export const TextHoverEffect = ({
           animate={maskPosition}
           transition={{ duration: duration ?? 0, ease: "easeOut" }}
 
-          // example for a smoother animation below
+        // example for a smoother animation below
 
-          //   transition={{
-          //     type: "spring",
-          //     stiffness: 300,
-          //     damping: 50,
-          //   }}
+        //   transition={{
+        //     type: "spring",
+        //     stiffness: 300,
+        //     damping: 50,
+        //   }}
         >
           <stop offset="0%" stopColor="white" />
           <stop offset="100%" stopColor="black" />

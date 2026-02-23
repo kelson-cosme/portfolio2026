@@ -1,4 +1,4 @@
-import { useRef } from "react";
+
 import { Hero } from "./components/Hero";
 import { SEO } from "./components/SEO";
 
@@ -15,28 +15,16 @@ import { Contact } from "./components/Contact";
 
 
 
-import { useEffect } from "react";
-// Import Locomotive Scroll (ensure it's installed via npm install locomotive-scroll)
-import LocomotiveScroll from 'locomotive-scroll';
-import 'locomotive-scroll/dist/locomotive-scroll.css'; // Optional if you need base styles
+
 
 function App() {
-  const scrollRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    // Locomotive Scroll v5 initialization
-    const scroll = new LocomotiveScroll();
 
-    return () => {
-      if (scroll) scroll.destroy();
-    }
-  }, []);
 
   return (
     <main
-      ref={scrollRef as any}
       data-scroll-container
-      className="bg-brand-dark min-h-screen w-full" // Removed overflow-y-scroll, snap-y, scroll-smooth
+      className="bg-brand-dark min-h-screen w-full"
     >
       <SEO />
 

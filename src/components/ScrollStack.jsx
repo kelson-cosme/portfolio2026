@@ -210,6 +210,7 @@ const ScrollStack = ({
       animationFrameRef.current = requestAnimationFrame(raf);
 
       lenisRef.current = lenis;
+      window.lenisScroll = lenis;
       return lenis;
     } else {
       const scroller = scrollerRef.current;
@@ -284,6 +285,7 @@ const ScrollStack = ({
       if (lenisRef.current) {
         lenisRef.current.destroy();
       }
+      window.lenisScroll = undefined;
       stackCompletedRef.current = false;
       cardsRef.current = [];
       transformsCache.clear();

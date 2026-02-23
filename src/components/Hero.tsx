@@ -48,11 +48,17 @@ export function Hero() {
   useEffect(() => {
     if (isLocked) {
       document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+      if ((window as any).lenisScroll) (window as any).lenisScroll.stop();
     } else {
       document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+      if ((window as any).lenisScroll) (window as any).lenisScroll.start();
     }
     return () => {
       document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+      if ((window as any).lenisScroll) (window as any).lenisScroll.start();
     };
   }, [isLocked]);
 

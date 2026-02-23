@@ -174,8 +174,10 @@ export const Card = ({
 
     if (open) {
       document.body.style.overflow = "hidden";
+      if ((window as any).lenisScroll) (window as any).lenisScroll.stop();
     } else {
       document.body.style.overflow = "auto";
+      if ((window as any).lenisScroll) (window as any).lenisScroll.start();
     }
 
     window.addEventListener("keydown", onKeyDown);
