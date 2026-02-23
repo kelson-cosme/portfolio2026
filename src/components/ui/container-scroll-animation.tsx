@@ -12,12 +12,12 @@ export const ContainerScroll = ({
   scrollContainerRef?: React.RefObject<HTMLElement | null>; // Tipagem
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     container: scrollContainerRef, // 2. Passamos a referência aqui!
   });
-  
+
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -35,13 +35,13 @@ export const ContainerScroll = ({
     return isMobile ? [0.7, 0.9] : [1.05, 1];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const rotate = useTransform(scrollYProgress, [0, 0.6], [20, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.6], scaleDimensions());
+  const translate = useTransform(scrollYProgress, [0, 0.6], [0, -100]);
 
   return (
     <div
-      className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20"
+      className="h-[50rem] md:h-[60rem] flex items-center justify-center relative p-2 md:p-20"
       ref={containerRef}
     >
       <div

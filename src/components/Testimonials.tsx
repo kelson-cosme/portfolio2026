@@ -26,15 +26,15 @@ const testimonials = [
 export function Testimonials() {
   return (
     <section className="min-h-screen w-full bg-brand-dark py-24 snap-start flex flex-col items-center justify-center relative overflow-hidden">
-      
+
       {/* Fundo Decorativo (Glow) */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
-         <div className="absolute top-[20%] right-[-10%] w-[30rem] h-[30rem] bg-cyan-500/10 blur-[100px] rounded-full" />
-         <div className="absolute bottom-[20%] left-[-10%] w-[30rem] h-[30rem] bg-blue-600/10 blur-[100px] rounded-full" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none overflow-hidden">
+        <div className="absolute top-[20%] right-[-10%] w-[30rem] h-[30rem] bg-cyan-500/10 blur-[100px] rounded-full transform-gpu will-change-transform" />
+        <div className="absolute bottom-[20%] left-[-10%] w-[30rem] h-[30rem] bg-blue-600/10 blur-[100px] rounded-full transform-gpu will-change-transform" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        
+
         {/* Cabeçalho da Secção */}
         <div className="text-center mb-16 md:mb-24">
           <span className="text-cyan-500 font-semibold tracking-wider text-sm uppercase mb-2 block">
@@ -53,44 +53,44 @@ export function Testimonials() {
           {testimonials.map((item, index) => (
             <CometCard key={index} className="w-full h-full">
               <div className="relative h-full w-full p-8 rounded-2xl bg-gradient-to-b from-slate-900 to-[#0B1121] border border-slate-800/60 flex flex-col justify-between group">
-                
+
                 {/* Ícone de Citação Decorativo */}
                 <div className="absolute top-6 right-8 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
-                    <Quote size={80} className="text-cyan-500 fill-cyan-500" />
+                  <Quote size={80} className="text-cyan-500 fill-cyan-500" />
                 </div>
 
                 {/* Conteúdo do Texto */}
                 <div>
-                    <div className="flex gap-1 mb-6">
-                        {[...Array(5)].map((_, i) => (
-                            <Star key={i} size={16} className="text-cyan-500 fill-cyan-500" />
-                        ))}
-                    </div>
-                    <p className="text-slate-300 text-lg leading-relaxed relative z-10 font-light italic">
-                      "{item.text}"
-                    </p>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={16} className="text-cyan-500 fill-cyan-500" />
+                    ))}
+                  </div>
+                  <p className="text-slate-300 text-lg leading-relaxed relative z-10 font-light italic">
+                    "{item.text}"
+                  </p>
                 </div>
 
                 {/* Autor */}
                 <div className="flex items-center gap-4 mt-8 pt-6 border-t border-slate-800/50">
                   <div className="relative">
                     <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-700 group-hover:border-cyan-500 transition-colors duration-300">
-                      <img 
-                        src={item.avatar} 
-                        alt={item.name} 
+                      <img
+                        src={item.avatar}
+                        alt={item.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     {/* Indicador Online (opcional) */}
                     <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-slate-900 rounded-full"></div>
                   </div>
-                  
+
                   <div>
                     <h4 className="text-white font-bold text-base group-hover:text-cyan-400 transition-colors">
-                        {item.name}
+                      {item.name}
                     </h4>
                     <span className="text-slate-500 text-sm">
-                        {item.role}
+                      {item.role}
                     </span>
                   </div>
                 </div>

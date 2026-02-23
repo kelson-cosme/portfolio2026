@@ -13,7 +13,7 @@ export function Projects() {
     // 1. "min-h-screen" garante que a seção tenha pelo menos a altura da tela, mas cresça se precisar.
     // 2. Removido "overflow-hidden" para não cortar os cards em telas menores.
     <section className="w-full min-h-screen py-10 md:py-20 bg-brand-dark snap-start flex flex-col justify-center">
-      
+
       {/* --- TÍTULO COM EFEITO HOVER --- */}
       <div className="h-[10rem] md:h-[15rem] flex items-center justify-center relative z-20">
         <TextHoverEffect text="PROJETOS" />
@@ -44,7 +44,7 @@ const DummyContent = () => {
               <span className="font-bold text-neutral-700 dark:text-neutral-200">
                 Detalhes do Projeto.
               </span>{" "}
-              Aqui você pode descrever as tecnologias usadas, o desafio enfrentado e a solução implementada. 
+              Aqui você pode descrever as tecnologias usadas, o desafio enfrentado e a solução implementada.
               Este é um espaço rico para mostrar sua expertise.
             </p>
             <img
@@ -68,28 +68,5 @@ const projectData = [
     src: "/eduardoamui/eduardoamui.webp",
     content: <DummyContent />,
   },
-  {
-    category: "SaaS",
-    title: "Dashboard Financeiro",
-    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
-    content: <DummyContent />,
-  },
-  {
-    category: "Landing Page",
-    title: "Campanha Marketing AI",
-    src: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2565&auto=format&fit=crop",
-    content: <DummyContent />,
-  },
-  {
-    category: "Mobile App",
-    title: "App de Fitness",
-    src: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=3270&auto=format&fit=crop",
-    content: <DummyContent />,
-  },
-  {
-    category: "Institucional",
-    title: "Site Advocacia",
-    src: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=3270&auto=format&fit=crop",
-    content: <DummyContent />,
-  },
+
 ];

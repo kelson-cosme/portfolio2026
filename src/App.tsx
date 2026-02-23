@@ -39,61 +39,14 @@ function App() {
       data-scroll-container
       className="bg-brand-dark min-h-screen w-full" // Removed overflow-y-scroll, snap-y, scroll-smooth
     >
-      {/* 1. SEO Principal da Página */}
       <SEO />
 
-      {/* 2. Hero (Mantido "Eager" - carrega logo para não piscar) */}
-      <Hero scrollContainerRef={scrollRef} />
-
-      {/* 3. Secções com Lazy Loading */}
-      {/* About */}
-      {/* <div data-scroll-section>
-        <ScrollReveal>
-         
-            <About scrollContainerRef={scrollRef} />
-          
-        </ScrollReveal>
-      </div> */}
-
-      {/* TechStack */}
-      <div data-scroll-section>
-        <ScrollReveal>
-
-          <TechStack />
-
-        </ScrollReveal>
-      </div>
-
-      {/* Projects */}
-      <div data-scroll-section>
-        <ScrollReveal>
-
-          <Projects />
-
-        </ScrollReveal>
-      </div>
-
-      {/* Services (Sticky - Fora do ScrollReveal) */}
-      <div data-scroll-section>
-        <Services scrollContainerRef={scrollRef} />
-
-      </div>
-
-      {/* Testimonials */}
-      <div data-scroll-section>
-        <ScrollReveal>
-
-          <Testimonials />
-
-        </ScrollReveal>
-      </div>
-
-      {/* Contact (Sticky - Fora do ScrollReveal) */}
-      <div data-scroll-section>
-        <Contact scrollContainerRef={scrollRef} />
-
-      </div>
-
+      <Hero />
+      <TechStack />
+      <Projects />
+      <Services />
+      <Testimonials />
+      <Contact />
     </main>
   );
 }

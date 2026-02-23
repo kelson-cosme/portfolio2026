@@ -165,9 +165,11 @@ const SimulationMaterial = shaderMaterial(
 // 3. Display Shader: Uses the simulation texture as a mask
 const DisplayMaterial = shaderMaterial(
     {
-        uTexture: new THREE.Texture(), // The reveal image
+        uTexture1: new THREE.Texture(), // Base image
+        uTexture2: new THREE.Texture(), // Reveal image
         uMask: new THREE.Texture(),    // The simulation (FBO)
         uOpacity: 1.0,
+        uForceReveal: 0.0,
         uResolution: new THREE.Vector2(1, 1),
         uImgSize: new THREE.Vector2(1, 1),
     },
@@ -181,36 +183,40 @@ const DisplayMaterial = shaderMaterial(
     `,
     // Fragment
     `
-    uniform sampler2D uTexture;
+    uniform sampler2D uTexture1;
+    uniform sampler2D uTexture2;
     uniform sampler2D uMask;
     uniform float uOpacity;
+    uniform float uForceReveal;
     uniform vec2 uResolution;
     uniform vec2 uImgSize;
     varying vec2 vUv;
 
     void main() {
-        // Object-cover logic
-        vec2 rs = uResolution;
-        vec2 is = uImgSize;
-        
-        // Background cover math
-        vec2 ratio = vec2(
-            min((rs.x / rs.y) / (is.x / is.y), 1.0),
-            min((rs.y / rs.x) / (is.y / is.x), 1.0)
-        );
-        
-        vec2 uv = vec2(
-            vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
-            vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
-        );
+        // Correct background-size: cover math
+        vec2 s = uResolution;
+        vec2 i = uImgSize;
+        float rs = s.x / s.y;
+        float ri = i.x / i.y;
+        vec2 newSize = rs < ri ? vec2(i.x * s.y / i.y, s.y) : vec2(s.x, i.y * s.x / i.x);
+        vec2 offset = (rs < ri ? vec2((newSize.x - s.x) / 2.0, 0.0) : vec2(0.0, (newSize.y - s.y) / 2.0)) / newSize;
+        vec2 uv = vUv * s / newSize + offset;
 
-        vec4 tex = texture2D(uTexture, uv);
+        // Apply UV math to textures (image), but NOT to mask (screen space)
+        vec4 tex1 = texture2D(uTexture1, uv);
+        vec4 tex2 = texture2D(uTexture2, uv);
         vec4 mask = texture2D(uMask, vUv);
         
         // Create smooth water edge
         float alpha = smoothstep(0.0, 0.2, mask.r);
         
-        gl_FragColor = vec4(tex.rgb, tex.a * alpha * uOpacity);
+        // Use full alpha if force reveal is enabled
+        alpha = mix(alpha, 1.0, uForceReveal);
+        
+        // Mix the two images based on the alpha mask
+        vec4 finalColor = mix(tex1, tex2, alpha);
+        
+        gl_FragColor = vec4(finalColor.rgb, finalColor.a * uOpacity);
     }
     `
 );
@@ -236,15 +242,18 @@ interface PixelTrailProps {
     interpolate?: number; // Not heavily used here
     className?: string;
     active?: boolean; // FIX: Added active prop
+    forceReveal?: boolean; // Reveal completely
     // Legacy props to ignore
     gridSize?: any;
     gooey?: any;
     gooeyStrength?: any;
 }
 
-function FluidReveal({ image2, trailSize = 0.1, maxAge = 0.98 }: any) {
+function FluidReveal({ image1, image2, trailSize = 0.1, maxAge = 0.98, forceReveal = false }: any) {
     const { viewport, size, gl } = useThree();
-    const texture = useTexture(image2);
+
+    // Load both textures
+    const [tex1, tex2] = useTexture([image1, image2]);
 
     // FBOs for ping-pong buffering
     const simFBO = useFBO(size.width, size.height, {
@@ -353,17 +362,22 @@ function FluidReveal({ image2, trailSize = 0.1, maxAge = 0.98 }: any) {
             {/* @ts-ignore */}
             <displayMaterial
                 ref={displayMat}
-                uTexture={texture}
+                uTexture1={tex1}
+                uTexture2={tex2}
                 uMask={simFBO.texture}
                 uResolution={[size.width, size.height]}
-                uImgSize={[(texture as any).image?.width || 1, (texture as any).image?.height || 1]}
+                uImgSize={[
+                    (tex1.image as HTMLImageElement)?.naturalWidth || 1,
+                    (tex1.image as HTMLImageElement)?.naturalHeight || 1
+                ]}
+                uForceReveal={forceReveal ? 1.0 : 0.0}
                 transparent
             />
         </mesh>
     );
 }
 
-export function PixelTrail({ image2, trailSize = 0.1, maxAge = 1000, className }: PixelTrailProps) {
+export function PixelTrail({ image1 = "/perfil.png", image2, trailSize = 0.1, maxAge = 1000, className, forceReveal = false }: PixelTrailProps) {
     return (
         <div className={`w-full h-full ${className} pointer-events-none`}>
             <Canvas
@@ -373,7 +387,7 @@ export function PixelTrail({ image2, trailSize = 0.1, maxAge = 1000, className }
                 eventPrefix="client"
                 style={{ pointerEvents: 'none' }}
             >
-                <FluidReveal image2={image2} trailSize={trailSize} maxAge={maxAge} />
+                <FluidReveal image1={image1} image2={image2} trailSize={trailSize} maxAge={maxAge} forceReveal={forceReveal} />
             </Canvas>
         </div>
     );
