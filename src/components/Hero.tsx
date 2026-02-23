@@ -26,7 +26,7 @@ export function Hero({ scrollContainerRef }: { scrollContainerRef: React.RefObje
         <img
           src="/perfil.png"
           alt="Eduardo Amui Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-60 md:opacity-100"
+          className="absolute inset-0 w-full h-full object-cover opacity-60 md:opacity-100 "
         />
 
         {/* Pixel Trail Overlay - Revela o Capacete ao passar o mouse */}
@@ -37,6 +37,7 @@ export function Hero({ scrollContainerRef }: { scrollContainerRef: React.RefObje
           maxAge={200} // Faster decay so face returns quickly
           className="absolute inset-0 z-10 w-full h-full mix-blend-normal"
           active={isInView} // PERF: Only render when visible
+
 
         />
       </div>

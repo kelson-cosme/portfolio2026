@@ -168,6 +168,8 @@ const DisplayMaterial = shaderMaterial(
         uTexture: new THREE.Texture(), // The reveal image
         uMask: new THREE.Texture(),    // The simulation (FBO)
         uOpacity: 1.0,
+        uResolution: new THREE.Vector2(1, 1),
+        uImgSize: new THREE.Vector2(1, 1),
     },
     // Vertex
     `
@@ -182,10 +184,27 @@ const DisplayMaterial = shaderMaterial(
     uniform sampler2D uTexture;
     uniform sampler2D uMask;
     uniform float uOpacity;
+    uniform vec2 uResolution;
+    uniform vec2 uImgSize;
     varying vec2 vUv;
 
     void main() {
-        vec4 tex = texture2D(uTexture, vUv);
+        // Object-cover logic
+        vec2 rs = uResolution;
+        vec2 is = uImgSize;
+        
+        // Background cover math
+        vec2 ratio = vec2(
+            min((rs.x / rs.y) / (is.x / is.y), 1.0),
+            min((rs.y / rs.x) / (is.y / is.x), 1.0)
+        );
+        
+        vec2 uv = vec2(
+            vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
+            vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
+        );
+
+        vec4 tex = texture2D(uTexture, uv);
         vec4 mask = texture2D(uMask, vUv);
         
         // Create smooth water edge
@@ -336,6 +355,8 @@ function FluidReveal({ image2, trailSize = 0.1, maxAge = 0.98 }: any) {
                 ref={displayMat}
                 uTexture={texture}
                 uMask={simFBO.texture}
+                uResolution={[size.width, size.height]}
+                uImgSize={[(texture as any).image?.width || 1, (texture as any).image?.height || 1]}
                 transparent
             />
         </mesh>
