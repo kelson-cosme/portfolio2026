@@ -32,11 +32,12 @@ export function Hero({ scrollContainerRef }: { scrollContainerRef: React.RefObje
         {/* Pixel Trail Overlay - Revela o Capacete ao passar o mouse */}
         {/* image1 não é usado no modo smooth, apenas image2 para o reveal */}
         <PixelTrail
-          image2="/perfilCapacete.png"
+          image2="/Robo.png"
           trailSize={0.15} // Brush size needs to be smaller in UV space (0-1)
           maxAge={200} // Faster decay so face returns quickly
           className="absolute inset-0 z-10 w-full h-full mix-blend-normal"
           active={isInView} // PERF: Only render when visible
+
         />
       </div>
 
