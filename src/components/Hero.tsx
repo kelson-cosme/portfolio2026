@@ -69,7 +69,13 @@ export function Hero() {
         style={{ x: bgX, y: bgY, scale: 1.05 }}
         className="absolute inset-0 z-0 origin-center overflow-hidden"
       >
-        <div className="relative w-full h-full ">
+        <div
+          className="relative w-full h-full"
+          style={{
+            maskImage: 'linear-gradient(to top, transparent, black 40%)',
+            WebkitMaskImage: 'linear-gradient(to top, transparent, black 40%)',
+          }}
+        >
           {/* Pixel Trail Overlay - Renders both Base Image and Reveal Image pixel-perfectly */}
           <PixelTrail
             image1="/perfil.png"
@@ -80,6 +86,9 @@ export function Hero() {
             active={isInView} // PERF: Only render when visible
             isLocked={isLocked} // Passes lock state to enable mobile touch drawing
           />
+
+          {/* Subtle Bottom Gradient to anchor the image to the background */}
+          <div className="absolute inset-x-0 bottom-0 z-10 pointer-events-none bg-gradient-to-t from-[#111112] to-transparent h-1/2" />
         </div>
       </motion.div>
 
